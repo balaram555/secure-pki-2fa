@@ -1,0 +1,14 @@
+# Encrypted seed (DO NOT COMMIT)
+encrypted_seed.txt
+oLylucd+uoi93lgnHYuNRxOULxixFYdX6js/kImd7LgjGwwlhKhk6MMuy7ch2ZvE97A/f/dF6NrjSWKtPIHUfq9vnjVDLZx4ZMOTJIJbQncQarlxYjO1sotEIgATAofy3xoaUGDGWdzxg7cLy4B738lyu617Y49g35uPfpi9jSXgIFZyh5aL0j3xRAgFlJmDwsyrHpR2jYS2MlCHie5YkNxkBLYQ4ijnSffsAeLs7wGXy3r+vG7SPU4zMRaFBY+p2G2Ay09fcCeXDsZAaMKI7ji1dpf5MFyYz3IB2Qo1msJ9qXhInJwMDXK5H8x/OjGUJY7G9+ADouDxJBm+01nDN8Ox2CKfAU9YEOm8yoAl7c3GYKFeLVl8/QKq4NLP69/+46JbtecnEv4ryShZ7UW7rNRFU7Ui9tefOFvvhmlmSyefrK0fhWGrn7jBjVkSpcgSOvLJBdI/KZxvzP2mhRL6TDIZ0WUIfuHAB1Hg7DWw5SJGSA0VSi3kR4YWECkEN1xQutp8bqfUJJ4VnDsl+yPR8AqldD97okRsi8ZoiKFy5PZCTgNcXGxij9jactjt+F/96PZe+0Y5zU3U+IvabttputLlqR/48Jos7lSMbBWRlv/2CjvWoKK8BX/DCiaXNQBixjvu3JvyIrQvcCR4jbDNElHRciKhgANY32t1CY4fT9g=
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+
+# IDE/editor files
+.vscode/
+.idea/

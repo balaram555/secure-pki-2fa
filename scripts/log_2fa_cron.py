@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # scripts/log_2fa_cron.py
 import os
 from datetime import datetime, timezone
