@@ -20,10 +20,12 @@ FROM python:3.11-slim AS runtime
 
 ENV TZ=UTC
 ENV LANG=C.UTF-8
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
+# Only timezone + certs needed now
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    cron \
     tzdata \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
@@ -31,26 +33,29 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
 RUN ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata || true
 
+# Python dependencies
 COPY --from=builder /install /usr/local
 
+# Application code
 COPY app ./app
 COPY scripts ./scripts
-COPY cron/2fa-cron /etc/cron.d/2fa-cron
 
+# Keys (required by assignment)
 COPY student_private.pem ./student_private.pem
 COPY student_public.pem ./student_public.pem
 COPY instructor_public.pem ./instructor_public.pem
 
+# Persistent volumes
 RUN mkdir -p /data /cron \
     && chmod 0755 /data /cron
 
-RUN chmod 0644 /etc/cron.d/2fa-cron \
-    && crontab /etc/cron.d/2fa-cron
+ENV SEED_FILE=/data/seed.txt
+ENV PRIVATE_KEY_PATH=/app/student_private.pem
 
 EXPOSE 8080
 
-ENV SEED_FILE=/data/seed.txt
-ENV PRIVATE_KEY_PATH=/app/student_private.pem
-ENV PYTHONUNBUFFERED=1
+# -----------------------------
+# Start background 2FA logger + API
+# -----------------------------
+CMD ["sh", "-c", "python -u scripts/cron_loop.py & exec python -m uvicorn app.main:app --host 0.0.0.0 --port 8080"]
 
-CMD [ "sh", "-c", "service cron start || cron && exec python -m uvicorn app.main:app --host 0.0.0.0 --port 8080" ]
